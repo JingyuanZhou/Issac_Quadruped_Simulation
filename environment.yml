@@ -1,0 +1,21 @@
+name: rlmpc
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7
+  - pytorch=1.8.1
+  - torchvision=0.9.1
+  - cudatoolkit=11.1
+  - pyyaml>=5.3.1
+  - scipy>=1.5.0
+  - tensorboard>=2.2.1
+  - osqp # conda install -c conda-forge osqp
+  - pybind11 # conda install -c conda-forge pybind11
+  - inputs # pip install inputs
+  - rl_games == 1.5.2 # pip install rl_games==1.5.2
+  - scipy # conda install scipy
+  # - cvxopt # conda install -c conda-forge cvxopt
+  # - mosek # conda install -c mosek mosek
+  # - pybullet # pip3 install pybullet --user --upgrade
