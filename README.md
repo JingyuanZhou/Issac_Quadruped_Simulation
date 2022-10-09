@@ -1,31 +1,33 @@
 ### Quadruped Simulation Using Issac
 
-\- Quadruped,
+```
+- Quadruped,
 
-\- RobotRunner ->
+- RobotRunner ->
 
-​	-LegController,
+  - LegController,
 
-​	-StateEstimator,
+  - StateEstimator,
 
-​	-ControlFSM ->
+  - ControlFSM ->
 
-​		  \- FSM State RecoveryStand,
+    - FSM State RecoveryStand,
 
-​	 	 \- FSM State Backflip->
+    - FSM State Backflip->
 
-​			   	1. BackFlipCtrl
+      	1. BackFlipCtrl
 
-​			   	2. DataReader
+      	2. DataReader
 
-​	 	 	 	3. DataReaderCtrl.py
+      	3. DataReaderCtrl.py
 
-​	 	 \- FSM State Locomotion ->
+    - FSM State Locomotion ->
 
-​		   \- ConvexMPCLocomotion->
+      - ConvexMPCLocomotion->
 
- 		 	  	1. FootSwingTrajectory,
+        	1. FootSwingTrajectory,
 
- 			   	2. Gait,
+        	2. Gait,
 
- 			   	3. MPC Solver in C
+        	3. MPC Solver in C
+```
