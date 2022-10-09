@@ -13,7 +13,7 @@ from argparse import ArgumentParser
 parser = ArgumentParser(prog="RL_MPC_LOCOMOTION")
 
 parser.add_argument("--robot", default="ALIENGO", choices=[name.title() for name in RobotType.__members__.keys()], help="robot types")
-parser.add_argument("--mode", default="Fsm", choices=[name.title() for name in ControllerType.__members__.keys()], help="controller types")
+parser.add_argument("--mode", default="Fsm", choices=[name.title() for name in ControllerType.__members__.keys()], help="controller types") #Fsm
 parser.add_argument("--num_envs", default=1, type=int, help="the number of robots")
 parser.add_argument("--render-fps", type=int, default=30, help="render fps")
 parser.add_argument('--disable-gamepad', action='store_true')
@@ -21,7 +21,7 @@ parser.add_argument('--disable-gamepad', action='store_true')
 args = parser.parse_args()
 
 use_gamepad = False#not args.disable_gamepad
-debug_vis = False # draw ground normal vector
+debug_vis = True # draw ground normal vector
 
 
 def main():

@@ -8,6 +8,7 @@ class RobotType(Enum):
     MINI_CHEETAH = auto()
     ANYMAL = auto()
     A1 = auto()
+    CHEETAH = auto()
 
 class Quadruped:
 
@@ -64,6 +65,22 @@ class Quadruped:
                                       0, 0.036203, 0, 
                                       0, 0, 0.042673]) * 10
             self._bodyHeight = 0.29
+            self._friction_coeffs = np.ones(4, dtype=DTYPE) * 0.4
+            # (roll_pitch_yaw, position, angular_velocity, velocity, gravity_place_holder)
+            self._mpc_weights = [0.25, 0.25, 10, 2, 2, 50, 0, 0, 0.3, 0.2, 0.2, 0.1, 0]
+        
+        elif robotype is RobotType.CHEETAH:
+            self._abadLinkLength = 0.045
+            self._hipLinkLength = 0.342
+            self._kneeLinkLength = 0.345
+            self._kneeLinkY_offset = 0.0
+            self._abadLocation = np.array([0.3, 0.128, 0], dtype=DTYPE).reshape((3,1))
+            self._bodyName = "BODY"
+            self._bodyMass = 26.60
+            self._bodyInertia = np.array([self._bodyMass, 0, 0, 
+                                      0, 0.036203, 0, 
+                                      0, 0, 0.042673]) * 10
+            self._bodyHeight = 0.2
             self._friction_coeffs = np.ones(4, dtype=DTYPE) * 0.4
             # (roll_pitch_yaw, position, angular_velocity, velocity, gravity_place_holder)
             self._mpc_weights = [0.25, 0.25, 10, 2, 2, 50, 0, 0, 0.3, 0.2, 0.2, 0.1, 0]

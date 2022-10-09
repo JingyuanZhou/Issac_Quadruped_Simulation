@@ -74,7 +74,7 @@ class FSM_State_Backflip(FSM_State):
             self._SafeCommand()
 
         self._count=self._count+1
-        self._curr_time = self._count+self.controller_dt
+        self._curr_time = self._curr_time+self.controller_dt#self._count+self.controller_dt
 
     def _Initialization(self):
         if self.test_initialized is not True:
@@ -101,7 +101,7 @@ class FSM_State_Backflip(FSM_State):
 
         if self.backflip_ctrl_.EndOfPhase(self._data._legController.datas):
             self.backflip_ctrl_.LastVisit()
-            #Parameters.control_mode = FSM_StateName.RECOVERY_STAND
+            Parameters.control_mode = FSM_StateName.RECOVERY_STAND
 
     def _SafeCommand(self):
         for leg in range(4):

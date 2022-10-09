@@ -1,0 +1,856 @@
+<robot
+  name="cheetah">
+
+  <!-- add transmission -->
+  <transmission name="LF_tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LF_JOINT1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LF_motor1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="LF_tran2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LF_JOINT2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LF_motor2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="LF_tran3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LF_JOINT3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LF_motor3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RF_tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RF_JOINT1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RF_motor1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RF_tran2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RF_JOINT2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RF_motor2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RF_tran3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RF_JOINT3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RF_motor3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="LB_tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LB_JOINT1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LB_motor1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="LB_tran2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LB_JOINT2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LB_motor2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="LB_tran3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LB_JOINT3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LB_motor3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RB_tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RB_JOINT1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RB_motor1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RB_tran2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RB_JOINT2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RB_motor2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RB_tran3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RB_JOINT3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RB_motor3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+  <!-- Set link color -->
+  <!--
+  <gazebo reference="BODY"> 
+	<material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="LF1"> 
+	<material>Gazebo/TurquoiseGlow</material>
+  </gazebo>
+  <gazebo reference="LF2"> 
+	<material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="LF3"> 
+	<material>Gazebo/Purple</material>
+  </gazebo>
+  <gazebo reference="LB1"> 
+	<material>Gazebo/TurquoiseGlow</material>
+  </gazebo>
+  <gazebo reference="LB2"> 
+	<material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="LB3"> 
+	<material>Gazebo/Purple</material>
+  </gazebo>
+  <gazebo reference="RF1"> 
+	<material>Gazebo/TurquoiseGlow</material>
+  </gazebo>
+  <gazebo reference="RF2"> 
+	<material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="RF3"> 
+	<material>Gazebo/Purple</material>
+  </gazebo>
+  <gazebo reference="RB1"> 
+	<material>Gazebo/TurquoiseGlow</material>
+  </gazebo>
+  <gazebo reference="RB2"> 
+	<material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="RB3"> 
+	<material>Gazebo/Purple</material>
+  </gazebo>
+  -->
+
+
+  <!-- fix body with the world -->
+  <!--
+  <link name="world"/>
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+	<child link="BODY"/>
+  </joint>
+  /-->
+
+  <link
+    name="BODY">
+    <inertial>
+      <origin
+        xyz="-0.113593903564993 0.217066486475541 0.0725525784319202"
+        rpy="0 0 0" />
+      <mass
+        value="1.31844704893266" />
+      <inertia
+        ixx="0.017613884547311"
+        ixy="1.32278411675395E-06"
+        ixz="5.48931561010479E-08"
+        iyy="0.00541232504528246"
+        iyz="-1.48504478494639E-07"
+        izz="0.0216123068811032" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/BODY.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/BODY.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="LF1">
+    <inertial>
+      <origin
+        xyz="0.00416915717325878 0.0533371336392539 -0.000155576362141904"
+        rpy="0 0 0" />
+      <mass
+        value="0.128744524052319" />
+      <inertia
+        ixx="7.3634303365245E-05"
+        ixy="-2.56340105197715E-06"
+        ixz="7.34655925439392E-09"
+        iyy="7.43038486906848E-06"
+        iyz="2.64832406655339E-07"
+        izz="8.10627763877994E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/LF1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/LF1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="LF_JOINT1"
+    type="continuous">
+    <origin
+      xyz="-0.173599224631532 0.399354557389219 0.0725529089199334"
+      rpy="-1.60410421924662E-15 -9.17720664828209E-31 1.49880108324396E-14" />
+    <parent
+      link="BODY" />
+    <child
+      link="LF1" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="LF2">
+    <inertial>
+      <origin
+        xyz="-0.0257671350141167 -0.0277002691344734 -0.0401594991792561"
+        rpy="0 0 0" />
+      <mass
+        value="0.323696829552903" />
+      <inertia
+        ixx="0.0015911534243345"
+        ixy="-0.000200341112329748"
+        ixz="-0.000250609290756637"
+        iyy="0.00117196534324195"
+        iyz="-0.000762067420043529"
+        izz="0.000734715998010219" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/LF2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/LF2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="LF_JOINT2"
+    type="continuous">
+    <origin
+      xyz="-0.0276978335511204 0.0707119289660939 0.000346434087151945"
+      rpy="0 0.0125069428080353 0" />
+    <parent
+      link="LF1" />
+    <child
+      link="LF2" />
+    <axis
+      xyz="1 0 0" />
+  </joint>
+  <link
+    name="LF3">
+    <inertial>
+      <origin
+        xyz="-0.0021525 0.10974 -0.07232"
+        rpy="0 0 0" />
+      <mass
+        value="0.13341" />
+      <inertia
+        ixx="0.00084222"
+        ixy="6.1312E-06"
+        ixz="-4.0413E-06"
+        iyy="0.00035515"
+        iyz="0.000387"
+        izz="0.0005872" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/LF3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/LF3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="LF_JOINT3"
+    type="continuous">
+    <origin
+      xyz="-0.0433804402006036 -0.141483529247529 -0.193861834684897"
+      rpy="0 -0.0125069428080353 0" />
+    <parent
+      link="LF2" />
+    <child
+      link="LF3" />
+    <axis
+      xyz="0.999921789331814 0 0.0125066070324357" />
+  </joint>
+  <link
+    name="RF1">
+    <inertial>
+      <origin
+        xyz="-0.00417077740673615 0.0533371334801075 0.000103422981290333"
+        rpy="0 0 0" />
+      <mass
+        value="0.128744523661008" />
+      <inertia
+        ixx="7.36352808234602E-05"
+        ixy="2.56651249107255E-06"
+        ixz="-8.55542577642252E-08"
+        iyy="7.43038659890618E-06"
+        iyz="-2.32754134425682E-07"
+        izz="8.10617991495423E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/RF1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/RF1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RF_JOINT1"
+    type="continuous">
+    <origin
+      xyz="-0.053599224631532 0.399354557389219 0.0725529089199333"
+      rpy="-1.0489927069341E-15 3.53125934784206E-07 1.41553431935442E-14" />
+    <parent
+      link="BODY" />
+    <child
+      link="RF1" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="RF2">
+    <inertial>
+      <origin
+        xyz="0.0278603138387799 -0.0316105920817467 -0.0434889754149741"
+        rpy="0 0 0" />
+      <mass
+        value="0.293729852554546" />
+      <inertia
+        ixx="0.00151255415617446"
+        ixy="0.000150440669943197"
+        ixz="0.000245448301267608"
+        iyy="0.00119493283924525"
+        iyz="-0.000693606643670843"
+        izz="0.00060534899343259" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/RF2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/RF2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RF_JOINT2"
+    type="continuous">
+    <origin
+      xyz="0.0277000007048783 0.0707119290863223 0"
+      rpy="0 -9.71536797770656E-09 0" />
+    <parent
+      link="RF1" />
+    <child
+      link="RF2" />
+    <axis
+      xyz="0.999999999999882 0 0" />
+  </joint>
+  <link
+    name="RF3">
+    <inertial>
+      <origin
+        xyz="0.0012022 0.11439 -0.064728"
+        rpy="0 0 0" />
+      <mass
+        value="0.13341" />
+      <inertia
+        ixx="0.00084228"
+        ixy="-8.6644E-07"
+        ixz="4.9108E-07"
+        iyy="0.00030465"
+        iyz="0.00036123"
+        izz="0.00063763" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/RF3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/RF3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RF_JOINT3"
+    type="continuous">
+    <origin
+      xyz="0.0433804384533972 -0.135888064174125 -0.197824250345348"
+      rpy="0 -2.79819504647401E-16 0" />
+    <parent
+      link="RF2" />
+    <child
+      link="RF3" />
+    <axis
+      xyz="0.999999999999882 0 0" />
+  </joint>
+  <link
+    name="LB1">
+    <inertial>
+      <origin
+        xyz="0.00417204633732762 -0.0185587177088162 -9.97745946321182E-06"
+        rpy="0 0 0" />
+      <mass
+        value="0.128744523484197" />
+      <inertia
+        ixx="7.3645415758557E-05"
+        ixy="2.5718913030145E-06"
+        ixz="2.87211579934568E-07"
+        iyy="7.43038317528339E-06"
+        iyz="1.62913050726137E-07"
+        izz="8.10516589850407E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/LB1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/LB1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="LB_JOINT1"
+    type="continuous">
+    <origin
+      xyz="-0.173599224631526 0 0.0725529089199335"
+      rpy="-1.88165997540291E-15 -8.49741356322415E-31 1.38777878078145E-14" />
+    <parent
+      link="BODY" />
+    <child
+      link="LB1" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="LB2">
+    <inertial>
+      <origin
+        xyz="-0.0269844850396956 -0.0185086913805722 -0.044421766660054"
+        rpy="0 0 0" />
+      <mass
+        value="0.323696605188412" />
+      <inertia
+        ixx="0.00157467378581713"
+        ixy="-0.00015865806466847"
+        ixz="-0.000318461542903892"
+        iyy="0.00146936765769985"
+        iyz="-0.000597785894343207"
+        izz="0.000453788328007147" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/LB2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/LB2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="LB_JOINT2"
+    type="continuous">
+    <origin
+      xyz="-0.0276897658681326 -0.0359335135474832 0.000752902296081187"
+      rpy="0 0 0" />
+    <parent
+      link="LB1" />
+    <child
+      link="LB2" />
+    <axis
+      xyz="0.999630540713182 0 0.0271805458641196" />
+  </joint>
+  <link
+    name="LB3">
+    <inertial>
+      <origin
+        xyz="-0.0027824 0.11787 -0.0581"
+        rpy="0 0 0" />
+      <mass
+        value="0.13341" />
+      <inertia
+        ixx="0.00084213"
+        ixy="9.9695E-06"
+        ixz="-4.9097E-06"
+        iyy="0.00026453"
+        iyz="0.00033378"
+        izz="0.0006779" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/LB3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/LB3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="LB_JOINT3"
+    type="continuous">
+    <origin
+      xyz="-0.0493319949518443 -0.0969348369953719 -0.218293046902893"
+      rpy="0 0 0" />
+    <parent
+      link="LB2" />
+    <child
+      link="LB3" />
+    <axis
+      xyz="0.999630540713182 0 0.0271805458641197" />
+  </joint>
+  <link
+    name="RB1">
+    <inertial>
+      <origin
+        xyz="-0.00417077572425556 -0.0185587184412605 -0.000103420362680906"
+        rpy="0 0 0" />
+      <mass
+        value="0.128744524870708" />
+      <inertia
+        ixx="7.36352831371301E-05"
+        ixy="-2.56651348011003E-06"
+        ixz="8.55518469782028E-08"
+        iyy="7.4303808316511E-06"
+        iyz="-2.32748084352556E-07"
+        izz="8.10617959046306E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/RB1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/RB1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RB_JOINT1"
+    type="continuous">
+    <origin
+      xyz="-0.0535992246315264 0 0.0725529089199335"
+      rpy="-1.60538682552622E-15 -0.0399761301393608 1.40807257464315E-14" />
+    <parent
+      link="BODY" />
+    <child
+      link="RB1" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="RB2">
+    <inertial>
+      <origin
+        xyz="0.0257671906273071 -0.0215423332294956 -0.0437723940108529"
+        rpy="0 0 0" />
+      <mass
+        value="0.323696977049233" />
+      <inertia
+        ixx="0.00159115518689923"
+        ixy="0.000121025413384883"
+        ixz="0.000297146529028806"
+        iyy="0.00148785865609025"
+        iyz="-0.000585522874736131"
+        izz="0.000418825726007803" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/RB2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/RB2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RB_JOINT2"
+    type="continuous">
+    <origin
+      xyz="0.0277000009004106 -0.0359335144587992 0"
+      rpy="0 -9.71536796845474E-09 0" />
+    <parent
+      link="RB1" />
+    <child
+      link="RB2" />
+    <axis
+      xyz="1 0 0" />
+  </joint>
+  <link
+    name="RB3">
+    <inertial>
+      <origin
+        xyz="0.0038009 0.11486 -0.063805"
+        rpy="0 0 0" />
+      <mass
+        value="0.13341" />
+      <inertia
+        ixx="0.0008419"
+        ixy="-1.5652E-05"
+        ixz="8.7002E-06"
+        iyy="0.00029911"
+        iyz="0.00035752"
+        izz="0.00064355" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/RB3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="meshes/RB3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RB_JOINT3"
+    type="continuous">
+    <origin
+      xyz="0.0433804375529314 -0.100202218464516 -0.218081441703766"
+      rpy="0 0.0399761398547287 0" />
+    <parent
+      link="RB2" />
+    <child
+      link="RB3" />
+    <axis
+      xyz="0.999201060527875 0 0.0399654931155527" />
+  </joint>
+</robot>
