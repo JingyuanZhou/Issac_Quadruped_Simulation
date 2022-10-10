@@ -35,6 +35,7 @@ class FSM_StateName(Enum):
     LOCOMOTION = 4
     RECOVERY_STAND = 6
     BACKFLIP = 3
+    FRONTJUMP = 11
 
 class FSM_OperatingMode(Enum):
     TEST = 0

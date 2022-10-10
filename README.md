@@ -12,14 +12,22 @@
   - ControlFSM ->
 
     - FSM State RecoveryStand,
+    
+    - FSM State FrontJump->
 
+        1. FrontJumpCtrl,
+
+        2. DataReader,
+
+      	3. DataReaderCtrl
+        
     - FSM State Backflip->
 
-      	1. BackFlipCtrl
+      	1. BackFlipCtrl,
 
-      	2. DataReader
+      	2. DataReader,
 
-      	3. DataReaderCtrl.py
+      	3. DataReaderCtrl
 
     - FSM State Locomotion ->
 
