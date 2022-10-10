@@ -138,6 +138,8 @@ class FSM_State_Backflip(FSM_State):
 
         elif Parameters.control_mode is FSM_StateName.PASSIVE:
             self.nextStateName = FSM_StateName.PASSIVE
+        elif Parameters.control_mode is FSM_StateName.FRONTJUMP:
+            self.nextStateName = FSM_StateName.FRONTJUMP
             
         else:
             print("[CONTROL FSM] Bad Request: Cannot transition from "
@@ -157,13 +159,12 @@ class FSM_State_Backflip(FSM_State):
 
         if self.nextStateName==FSM_StateName.PASSIVE:
             self.transitionDone = True
-
         elif self.nextStateName == FSM_StateName.RECOVERY_STAND:
             self.transitionDone = True
-
-        elif self.nextStateName==FSM_StateName.LOCOMOTION:
+        elif self.nextStateName == FSM_StateName.LOCOMOTION:
             self.transitionDone = True
-
+        elif self.nextStateName == FSM_StateName.FRONTJUMP:
+            self.transitionDone = True
         else:
             print("[CONTROL FSM] Something went wrong in transition")
 

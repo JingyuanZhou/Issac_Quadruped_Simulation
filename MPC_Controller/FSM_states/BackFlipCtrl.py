@@ -10,7 +10,7 @@ class BackFlipCtrl(DataReadCtrl):
         super(BackFlipCtrl,self).__init__(data_reader,_dt)
         self.q0_offset = 0
         self.qd0_offset = 7
-        self.tau_offset = 2#14
+        self.tau_offset = 14#14
         self.force_offset = 18
 
     def OneStep(self,_curr_time,b_preparation,command):
@@ -39,7 +39,7 @@ class BackFlipCtrl(DataReadCtrl):
 
     def _update_joint_command(self):
         pre_mode_duration = 2000 #2000
-        tuck_iteration = 700 #600
+        tuck_iteration = 600 #600
         ramp_end_iteration = 650 #650
 
         self._Kp_joint = [10.0, 10.0, 10.0]
@@ -52,7 +52,7 @@ class BackFlipCtrl(DataReadCtrl):
             self.current_iteration = 0
             tau_mult = 0
         else:
-            tau_mult = 2 #1.2
+            tau_mult = 1.2 #1.2
 
         if self.current_iteration>self._data_reader.plan_timesteps - 1:
             self.current_iteration = int(self._data_reader.plan_timesteps - 1)

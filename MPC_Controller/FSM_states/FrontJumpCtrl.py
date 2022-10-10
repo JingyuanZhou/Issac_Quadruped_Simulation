@@ -8,7 +8,7 @@ class FrontJumpCtrl(DataReadCtrl):
         super(FrontJumpCtrl,self).__init__(data_reader,_dt)
         self.q0_offset = 0
         self.qd0_offset = 7
-        self.tau_offset = 14#14
+        self.tau_offset = 14
         self.force_offset = 18
 
     def OneStep(self,_curr_time,b_preparation,command):
@@ -44,6 +44,7 @@ class FrontJumpCtrl(DataReadCtrl):
         self._Kp_joint = [10.0, 10.0, 10.0]
         self._Kd_joint = [1.0, 1.0, 1.0]
 
+        # PRE JUMP PREPATATION - CROUCH (FOLLOWS PREMODE DURATION TIMESTEPS) 
         if self.pre_mode_count < pre_mode_duration or self._b_Preparation:
             if self.pre_mode_count == 0:
                 print("plan_timesteps:"+str(self._data_reader.plan_timesteps))
@@ -54,33 +55,40 @@ class FrontJumpCtrl(DataReadCtrl):
         else:
             tau_mult = 1.2
 
+        # OBTAIN TIMSTEP DATA FROM THE DATA FILE 
         if self.current_iteration>self._data_reader.plan_timesteps - 1:
-            self.current_step = int(self._data_reader.plan_timesteps - 1)
-        
+            self.current_iteration = int(self._data_reader.plan_timesteps - 1)
+
+        # OBTAIN DATA FROM THE JUMP_DATA FILE GENERATED IN MATLAB 
         current_step = self._data_reader.get_plan_at_time(self.current_iteration)
         current_step = self.Bytes2Float32Slice(current_step)
-
         tau_offset_list=[self.tau_offset for i in range(22)]
         tau = [current_step[i]+tau_offset_list[i] for i in range(min(len(current_step),len(tau_offset_list)))]
 
+        # SETTING THE JOINT POSITIONS AND VELOCITIES AND FEEDING FORWARD THE JOINT TORQUES obtained from the data file 
         q_des_front = [0.0,current_step[3],current_step[4]]
         q_des_rear = [0.0,current_step[5],current_step[6]]
         qd_des_front = [0.0,current_step[10],current_step[11]]
         qd_des_rear = [0.0,current_step[12],current_step[13]]
-
         tau_front = [0.0,tau_mult*tau[0]/2.0,tau_mult*tau[1]/2.0]
         tau_rear = [0.0,tau_mult*tau[2]/2.0,tau_mult*tau[3]/2.0]
 
+        # Limitation set so that the arms do not swing too far back and hit the legs 
+        # code here
+
         s=0.0
 
+        # CONTROL LEG_CLEARANCE_ITERATION_FRONT
         if self.current_iteration >= leg_clearance_iteration_front and self.current_iteration <= leg_clearance_iteration:
             q_des_front = [0.0,current_step[3],current_step[4]]
 
             current_step = self._data_reader.get_plan_at_time(leg_clearance_iteration_front)
+            current_step = self.Bytes2Float32Slice(current_step)
             q_des_front = [0.0,-2.3,2.5]
             qd_des_front = [0.0,0.0,0.0]
             tau_front = [0.0,0.0,0.0]
 
+        # CONTROL LEG_CLEARNACE ITERATION 
         if self.current_iteration >= leg_clearance_iteration and self.current_iteration<tuck_iteration:
             qd_des_front = [0.0,0.0,0.0]
             qd_des_rear = [0.0,0.0,0.0]
@@ -95,7 +103,7 @@ class FrontJumpCtrl(DataReadCtrl):
             current_step = self._data_reader.get_plan_at_time(tuck_iteration)
             current_step = self.Bytes2Float32Slice(current_step)
             q_des_front_0 = [0.0,-2.3,2.5]
-            q_des_rear_0 = [0.0,-1.25,2.5]
+            q_des_rear_0 = [0.0,current_step[5],current_step[6]]
 
             # SET THE DESIRED JOINT STATES FOR LEG_CLEARANCE_ITERATION
             current_step = self._data_reader.get_plan_at_time(0)
@@ -111,7 +119,8 @@ class FrontJumpCtrl(DataReadCtrl):
             q_des_front = [transition_q_des_front_0[i]+transition_q_des_front_f[i] for i in range(min(len(transition_q_des_front_0),len(transition_q_des_front_f)))]
             q_des_rear = [transition_q_des_rear_0[i]+transition_q_des_rear_f[i] for i in range(min(len(transition_q_des_rear_0),len(transition_q_des_rear_f)))]
 
-        elif self.current_iteration >= tuck_iteration: # ramp to landing configuration
+        # ramp to landing configuration
+        elif self.current_iteration >= tuck_iteration:
             qd_des_front = [0.0,0.0,0.0]
             qd_des_rear = [0.0,0.0,0.0]
             tau_front = [0.0,0.0,0.0]
@@ -127,14 +136,15 @@ class FrontJumpCtrl(DataReadCtrl):
             q_des_rear_0 = [0.0,-1.25,2.5]
 
             current_step = self._data_reader.get_plan_at_time(0)
+            current_step = self.Bytes2Float32Slice(current_step)
             q_des_front_f = [0.0,-0.45,1.3]
             q_des_rear_f = [0.0,-0.45,1.3]
 
+            # ramp for linear interpolation for the tuck iteration 
             transition_q_des_front_0=[i * (1-s) for i in q_des_front_0]
             transition_q_des_front_f=[i * (1-s) for i in q_des_front_f]
             transition_q_des_rear_0=[i * (1-s) for i in q_des_rear_0]
             transition_q_des_rear_f=[i * (1-s) for i in q_des_rear_f]
-
             q_des_front = [transition_q_des_front_0[i]+transition_q_des_front_f[i] for i in range(min(len(transition_q_des_front_0),len(transition_q_des_front_f)))]
             q_des_rear = [transition_q_des_rear_0[i]+transition_q_des_rear_f[i] for i in range(min(len(transition_q_des_rear_0),len(transition_q_des_rear_f)))]
 
@@ -166,7 +176,7 @@ class FrontJumpCtrl(DataReadCtrl):
 
         #Front Knee
         for i in range(2,6,3):
-            self._des_jpos[i] = q_des_rear[2]
+            self._des_jpos[i] = q_des_front[2]
             self._des_jvel[i] = qd_des_front[2]
             self._jtorque[i] = tau_front[2]
 
@@ -181,5 +191,4 @@ class FrontJumpCtrl(DataReadCtrl):
             self._des_jpos[i] = q_des_rear[2]
             self._des_jvel[i] = qd_des_rear[2]
             self._jtorque[i] = tau_rear[2]
-
         self.current_iteration = self.current_iteration+self._key_pt_step

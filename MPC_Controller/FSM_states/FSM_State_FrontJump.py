@@ -63,7 +63,7 @@ class FSM_State_FrontJump(FSM_State):
         for leg in range(4):
             self.initial_jpos[leg] = self._data._legController.datas[leg].q
 
-        #self.front_jump_ctrl_.SetParameter()
+        self.front_jump_ctrl_.SetParameter()
 
     def run(self):
         """
@@ -103,7 +103,7 @@ class FSM_State_FrontJump(FSM_State):
 
         if self.front_jump_ctrl_.EndOfPhase(self._data._legController.datas):
             self.front_jump_ctrl_.LastVisit()
-            #Parameters.control_mode = FSM_StateName.RECOVERY_STAND
+            Parameters.control_mode = FSM_StateName.RECOVERY_STAND
 
     def _SafeCommand(self):
         for leg in range(4):
@@ -140,6 +140,8 @@ class FSM_State_FrontJump(FSM_State):
 
         elif Parameters.control_mode is FSM_StateName.PASSIVE:
             self.nextStateName = FSM_StateName.PASSIVE
+        elif Parameters.control_mode is FSM_StateName.BACKFLIP:
+            self.nextStateName = FSM_StateName.BACKFLIP
             
         else:
             print("[CONTROL FSM] Bad Request: Cannot transition from "
@@ -163,9 +165,10 @@ class FSM_State_FrontJump(FSM_State):
         elif self.nextStateName == FSM_StateName.RECOVERY_STAND:
             self.transitionDone = True
 
-        elif self.nextStateName==FSM_StateName.LOCOMOTION:
+        elif self.nextStateName == FSM_StateName.LOCOMOTION:
             self.transitionDone = True
-
+        elif self.nextStateName == FSM_StateName.BACKFLIP:
+            self.transitionDone = True
         else:
             print("[CONTROL FSM] Something went wrong in transition")
 

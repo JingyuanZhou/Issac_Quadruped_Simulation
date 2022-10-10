@@ -9,6 +9,7 @@ class DataReader:
         self.plan_loaded = False
         self.plan_buffer = None
 
+
         if stateNameIn == FSM_StateName.BACKFLIP:
             print("[Backflip DataReader] Setup for Aliengo")
             self.load_control_plan("/home/jyzhou53/rl-mpc-locomotion/MPC_Controller/FSM_states/Data/backflip.dat")
@@ -17,6 +18,7 @@ class DataReader:
             print("[Front Jump DataReader] Setup for Aliengo")
             self.load_control_plan("/home/jyzhou53/rl-mpc-locomotion/MPC_Controller/FSM_states/Data/front_jump_pitchup_v2.dat")
             print("[Front Jump DataReader] Constructed.")
+
     
     def load_control_plan(self,filename):
         f=open(filename,"rb")
