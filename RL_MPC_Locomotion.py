@@ -21,7 +21,7 @@ parser.add_argument('--disable-gamepad', action='store_true')
 args = parser.parse_args()
 
 use_gamepad = False#not args.disable_gamepad
-debug_vis = True # draw ground normal vector
+debug_vis = False # draw ground normal vector
 
 
 def main():
@@ -33,7 +33,6 @@ def main():
     #add_random_uniform_terrain(gym, sim)
     #add_uneven_terrains(gym,sim)
     #add_terrain(gym, sim, "stone")
-    add_terrain(gym, sim, "stair")
     #add_terrain(gym, sim, "stair")
     #add_terrain(gym, sim, "stair", 3.95, True)
     #add_terrain(gym, sim, "slope", 3.95, True)
@@ -102,7 +101,7 @@ def main():
             body_idx = gym.find_actor_rigid_body_index(env, actor, controller._quadruped._bodyName, gymapi.DOMAIN_ACTOR)
             body_states = gym.get_actor_rigid_body_states(env, actor, gymapi.STATE_ALL)[body_idx]
             legTorques = controller.run(dof_states, body_states, commands)
-            gym.apply_actor_dof_efforts(env, actor, legTorques / (Parameters.controller_dt*100))
+            gym.apply_actor_dof_efforts(env, actor, legTorques / (Parameters.controller_dt*1000))
 
         #if Parameters.locomotionUnsafe:
         #    gamepad.fake_event(ev_type='Key',code='BTN_TR',value=0)

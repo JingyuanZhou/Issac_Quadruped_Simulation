@@ -34,7 +34,7 @@ class DataReadCtrl:
         pass
 
     def EndOfPhase(self,data):
-        if self._state_machine_time > self._end_time - 2*self.dt:
+        if self._state_machine_time > (self._end_time - 2*self.dt):
             return True
         for leg in range(4):
             if self._state_machine_time>2.7 and data[leg].q[1] > self._q_knee_max and data[leg].qd[1] > self._qdot_knee_max:

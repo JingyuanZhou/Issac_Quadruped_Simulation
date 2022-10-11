@@ -23,7 +23,7 @@ class BackFlipCtrl(DataReadCtrl):
             for jidx in range(3):
                 command[leg].tauFeedForward[jidx] = self._jtorque[3*leg+jidx]
                 command[leg].qDes[jidx] = self._des_jpos[3*leg+jidx]+0*_curr_time
-                command[leg].qdDes[jidx] = self._des_jpos[3*leg+jidx]
+                command[leg].qdDes[jidx] = self._des_jvel[3*leg+jidx]
                 command[leg].kpJoint[jidx, jidx] = self._Kp_joint[jidx]
                 command[leg].kdJoint[jidx,jidx] = self._Kd_joint[jidx]
 
@@ -38,19 +38,24 @@ class BackFlipCtrl(DataReadCtrl):
 
 
     def _update_joint_command(self):
-        pre_mode_duration = 2000 #2000
+        pre_mode_duration = 0 #2000
         tuck_iteration = 600 #600
         ramp_end_iteration = 650 #650
 
         self._Kp_joint = [10.0, 10.0, 10.0]
         self._Kd_joint = [1.0, 1.0, 1.0]
 
+        for i in range(12):
+            self._des_jpos[i] = 0
+            self._des_jvel[i] = 0
+            self._jtorque[i] = 0
+
         if self.pre_mode_count < pre_mode_duration or self._b_Preparation:
             if self.pre_mode_count == 0:
                 print("plan_timesteps:"+str(self._data_reader.plan_timesteps))
             self.pre_mode_count = self.pre_mode_count + self._key_pt_step
             self.current_iteration = 0
-            tau_mult = 0
+            tau_mult = 0.
         else:
             tau_mult = 1.2 #1.2
 
@@ -59,7 +64,6 @@ class BackFlipCtrl(DataReadCtrl):
         
         current_step = self._data_reader.get_plan_at_time(self.current_iteration)
         current_step = self.Bytes2Float32Slice(current_step)
-
         tau_offset_list=[self.tau_offset for i in range(22)]
         tau = [current_step[i]+tau_offset_list[i] for i in range(min(len(current_step),len(tau_offset_list)))]
 
@@ -109,10 +113,10 @@ class BackFlipCtrl(DataReadCtrl):
             self._Kd_joint = [1.5, 1.5, 1.5]
 
         # Abduction
-        for i in range(4):
-            self._des_jpos[i*3] = 0.0
-            self._des_jvel[i*3] = 0.0
-            self._jtorque[i*3] = 0.0
+        for i in range(0,12,3):
+            self._des_jpos[i] = 0.0
+            self._des_jvel[i] = 0.0
+            self._jtorque[i] = 0.0
 
         self._des_jpos[0] = s*(-0.2)
         self._des_jpos[3] = s*0.2
@@ -127,7 +131,7 @@ class BackFlipCtrl(DataReadCtrl):
 
         #Front Knee
         for i in range(2,6,3):
-            self._des_jpos[i] = q_des_rear[2]
+            self._des_jpos[i] = q_des_front[2]
             self._des_jvel[i] = qd_des_front[2]
             self._jtorque[i] = tau_front[2]
 

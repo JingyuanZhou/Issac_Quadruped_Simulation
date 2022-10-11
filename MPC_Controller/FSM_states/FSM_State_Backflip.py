@@ -10,7 +10,7 @@ from MPC_Controller.FSM_states.BackFlipCtrl import BackFlipCtrl
 
 class FSM_State_Backflip(FSM_State):
     def __init__(self, _controlFSMData: ControlFSMData):
-        super().__init__(_controlFSMData, FSM_StateName.BACKFLIP, "BACKFLIP")
+        super().__init__(_controlFSMData, FSM_StateName.STAND_UP, "STAND_UP")
 
         self.Preparation = 0
         self.Flip = 1
@@ -37,7 +37,7 @@ class FSM_State_Backflip(FSM_State):
 
         self.zero_vec3 = np.zeros((3,1), dtype=DTYPE)
         
-        self.controller_dt = 0.01
+        self.controller_dt = 0.001
         self._data_reader=DataReader(_controlFSMData._quadruped._robotType,FSM_StateName.BACKFLIP)
         self.backflip_ctrl_=BackFlipCtrl(self._data_reader,self.controller_dt)
         self.backflip_ctrl_.SetParameter()

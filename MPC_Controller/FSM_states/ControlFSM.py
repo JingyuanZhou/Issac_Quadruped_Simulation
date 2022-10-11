@@ -16,6 +16,7 @@ from MPC_Controller.FSM_states.ControlFSMData import ControlFSMData
 from MPC_Controller.FSM_states.FSM_State_Locomotion import FSM_State_Locomotion
 from MPC_Controller.FSM_states.FSM_State_Backflip import FSM_State_Backflip
 from MPC_Controller.FSM_states.FSM_State_FrontJump import FSM_State_FrontJump
+from MPC_Controller.FSM_states.FSM_State_StandUp import FSM_State_StandUp
 from MPC_Controller.DesiredStateCommand import DesiredStateCommand
 from MPC_Controller.utils import FSM_OperatingMode
 
@@ -27,6 +28,7 @@ class FSM_StatesList:
         self.locomotion:FSM_State_Locomotion = None
         self.backflip:FSM_State_Backflip = None
         self.frontjump:FSM_State_FrontJump = None
+        self.standup:FSM_State_StandUp = None
 
 class ControlFSM:
     def __init__(self,
@@ -47,6 +49,7 @@ class ControlFSM:
         self.statesList.recoveryStand = FSM_State_RecoveyrStand(self.data)
         self.statesList.backflip = FSM_State_Backflip(self.data)
         self.statesList.frontjump = FSM_State_FrontJump(self.data)
+        self.statesList.standup = FSM_State_StandUp(self.data)
 
         # FSM state information
         self.currentState:FSM_State = None
@@ -55,7 +58,7 @@ class ControlFSM:
         
         self.transitionDone = False
         self.printIter = 0
-        self.printNum = int(1000/(Parameters.controller_dt*100)) # N*(0.01s) in simulation time
+        self.printNum = int(1000/(Parameters.controller_dt*1000)) # N*(0.001s) in simulation time
         self.iter = 0
 
         # ! may need a SafetyChecker
@@ -75,6 +78,8 @@ class ControlFSM:
             self.currentState = self.statesList.backflip
         elif Parameters.control_mode is FSM_StateName.FRONTJUMP:
             self.currentState = self.statesList.frontjump
+        elif Parameters.control_mode is FSM_StateName.STAND_UP:
+            self.currentState = self.statesList.standup
         else:
             raise Exception("Invalid Initial FSM State!")
             

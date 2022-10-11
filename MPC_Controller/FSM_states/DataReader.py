@@ -1,6 +1,7 @@
 from io import SEEK_END, SEEK_SET
 import MPC_Controller.FSM_states.FSM_State
 from MPC_Controller.utils import FSM_StateName
+from MPC_Controller.common.Quadruped import RobotType
 
 class DataReader:
 
@@ -11,9 +12,14 @@ class DataReader:
 
 
         if stateNameIn == FSM_StateName.BACKFLIP:
-            print("[Backflip DataReader] Setup for Aliengo")
-            self.load_control_plan("/home/jyzhou53/rl-mpc-locomotion/MPC_Controller/FSM_states/Data/backflip.dat")
-            print("[Backflip DataReader] Constructed.")
+            if _type == RobotType.ALIENGO:
+                print("[Backflip DataReader] Setup for Aliengo")
+                self.load_control_plan("/home/jyzhou53/rl-mpc-locomotion/MPC_Controller/FSM_states/Data/backflip.dat")
+                print("[Backflip DataReader] Constructed.")
+            elif _type == RobotType.MINI_CHEETAH:
+                print("[Backflip DataReader] Setup for Mini Cheetah")
+                self.load_control_plan("/home/jyzhou53/rl-mpc-locomotion/MPC_Controller/FSM_states/Data/mc_flip.dat")
+                print("[Backflip DataReader] Constructed.")
         elif stateNameIn == FSM_StateName.FRONTJUMP:
             print("[Front Jump DataReader] Setup for Aliengo")
             self.load_control_plan("/home/jyzhou53/rl-mpc-locomotion/MPC_Controller/FSM_states/Data/front_jump_pitchup_v2.dat")

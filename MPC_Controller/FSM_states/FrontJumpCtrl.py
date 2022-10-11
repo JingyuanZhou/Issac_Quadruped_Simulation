@@ -2,6 +2,7 @@ from MPC_Controller.FSM_states.DataReader import DataReader
 from MPC_Controller.FSM_states.DataReaderCtrl import DataReadCtrl
 from MPC_Controller.common.LegController import LegControllerCommand
 import struct
+import numpy as np
 
 class FrontJumpCtrl(DataReadCtrl):
     def __init__(self,data_reader,_dt):
@@ -20,7 +21,7 @@ class FrontJumpCtrl(DataReadCtrl):
             for jidx in range(3):
                 command[leg].tauFeedForward[jidx] = self._jtorque[3*leg+jidx]
                 command[leg].qDes[jidx] = self._des_jpos[3*leg+jidx]+0*_curr_time
-                command[leg].qdDes[jidx] = self._des_jpos[3*leg+jidx]
+                command[leg].qdDes[jidx] = self._des_jvel[3*leg+jidx]
                 command[leg].kpJoint[jidx, jidx] = self._Kp_joint[jidx]
                 command[leg].kdJoint[jidx,jidx] = self._Kd_joint[jidx]
 
@@ -34,7 +35,7 @@ class FrontJumpCtrl(DataReadCtrl):
         return x
 
     def _update_joint_command(self):
-        pre_mode_duration = 700
+        pre_mode_duration = 700 #700
         leg_clearance_iteration_front = 240
         leg_clearance_iteration = 600
         leg_ramp_iteration = 610
@@ -43,6 +44,11 @@ class FrontJumpCtrl(DataReadCtrl):
 
         self._Kp_joint = [10.0, 10.0, 10.0]
         self._Kd_joint = [1.0, 1.0, 1.0]
+
+        for i in range(12):
+            self._des_jpos[i] = 0
+            self._des_jvel[i] = 0
+            self._jtorque[i] = 0
 
         # PRE JUMP PREPATATION - CROUCH (FOLLOWS PREMODE DURATION TIMESTEPS) 
         if self.pre_mode_count < pre_mode_duration or self._b_Preparation:
@@ -62,7 +68,7 @@ class FrontJumpCtrl(DataReadCtrl):
         # OBTAIN DATA FROM THE JUMP_DATA FILE GENERATED IN MATLAB 
         current_step = self._data_reader.get_plan_at_time(self.current_iteration)
         current_step = self.Bytes2Float32Slice(current_step)
-        tau_offset_list=[self.tau_offset for i in range(22)]
+        tau_offset_list=[self.tau_offset for i in range(4)]
         tau = [current_step[i]+tau_offset_list[i] for i in range(min(len(current_step),len(tau_offset_list)))]
 
         # SETTING THE JOINT POSITIONS AND VELOCITIES AND FEEDING FORWARD THE JOINT TORQUES obtained from the data file 
@@ -74,7 +80,10 @@ class FrontJumpCtrl(DataReadCtrl):
         tau_rear = [0.0,tau_mult*tau[2]/2.0,tau_mult*tau[3]/2.0]
 
         # Limitation set so that the arms do not swing too far back and hit the legs 
-        # code here
+        #if q_des_front[1]<-np.pi/2.2:
+        #    q_des_front[1]=-np.pi/2.2
+        #    qd_des_front[1] = 0.
+        #    tau_front[1] = 0.
 
         s=0.0
 
