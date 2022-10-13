@@ -102,6 +102,9 @@ class FSM_State_RecoveyrStand(FSM_State):
             self._RollOver(self._state_iter - self._motion_start_iter)
 
         self._state_iter += 1
+        if self._state_iter >= 2500:
+            Parameters.control_mode = FSM_StateName.FRONTJUMP
+
 
     def onExit(self):
         """
@@ -130,7 +133,11 @@ class FSM_State_RecoveyrStand(FSM_State):
 
         elif Parameters.control_mode is FSM_StateName.PASSIVE:
             self.nextStateName = FSM_StateName.PASSIVE
-            
+
+        elif Parameters.control_mode is FSM_StateName.BACKFLIP:
+            self.nextStateName = FSM_StateName.BACKFLIP
+        elif Parameters.control_mode is FSM_StateName.FRONTJUMP:
+            self.nextStateName = FSM_StateName.FRONTJUMP
         else:
             print("[CONTROL FSM] Bad Request: Cannot transition from "
                 + self.stateName.name
@@ -152,7 +159,10 @@ class FSM_State_RecoveyrStand(FSM_State):
 
         elif self.nextStateName==FSM_StateName.LOCOMOTION:
             self.transitionDone = True
-
+        elif self.nextStateName==FSM_StateName.BACKFLIP:
+            self.transitionDone = True
+        elif self.nextStateName==FSM_StateName.FRONTJUMP:
+            self.transitionDone = True
         else:
             print("[CONTROL FSM] Something went wrong in transition")
 

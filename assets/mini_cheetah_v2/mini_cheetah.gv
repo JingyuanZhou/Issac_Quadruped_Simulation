@@ -1,0 +1,53 @@
+digraph G {
+node [shape=box];
+"body" [label="body"];
+"abduct_fl" [label="abduct_fl"];
+"thigh_fl" [label="thigh_fl"];
+"shank_fl" [label="shank_fl"];
+"toe_fl" [label="toe_fl"];
+"abduct_fr" [label="abduct_fr"];
+"thigh_fr" [label="thigh_fr"];
+"shank_fr" [label="shank_fr"];
+"toe_fr" [label="toe_fr"];
+"abduct_hl" [label="abduct_hl"];
+"thigh_hl" [label="thigh_hl"];
+"shank_hl" [label="shank_hl"];
+"toe_hl" [label="toe_hl"];
+"abduct_hr" [label="abduct_hr"];
+"thigh_hr" [label="thigh_hr"];
+"shank_hr" [label="shank_hr"];
+"toe_hr" [label="toe_hr"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"body" -> "torso_to_abduct_fl_j" [label="xyz: 0.19 0.049 0 \nrpy: 0 -0 0"]
+"torso_to_abduct_fl_j" -> "abduct_fl"
+"abduct_fl" -> "abduct_fl_to_thigh_fl_j" [label="xyz: 0 0.062 0 \nrpy: 0 -0 0"]
+"abduct_fl_to_thigh_fl_j" -> "thigh_fl"
+"thigh_fl" -> "thigh_fl_to_knee_fl_j" [label="xyz: 0 0 -0.209 \nrpy: 0 -0 0"]
+"thigh_fl_to_knee_fl_j" -> "shank_fl"
+"shank_fl" -> "toe_fl_joint" [label="xyz: 0 0 -0.18 \nrpy: 0 -0 0"]
+"toe_fl_joint" -> "toe_fl"
+"body" -> "torso_to_abduct_fr_j" [label="xyz: 0.19 -0.049 0 \nrpy: 0 -0 0"]
+"torso_to_abduct_fr_j" -> "abduct_fr"
+"abduct_fr" -> "abduct_fr_to_thigh_fr_j" [label="xyz: 0 -0.062 0 \nrpy: 0 -0 0"]
+"abduct_fr_to_thigh_fr_j" -> "thigh_fr"
+"thigh_fr" -> "thigh_fr_to_knee_fr_j" [label="xyz: 0 0 -0.209 \nrpy: 0 -0 0"]
+"thigh_fr_to_knee_fr_j" -> "shank_fr"
+"shank_fr" -> "toe_fr_joint" [label="xyz: 0 0 -0.18 \nrpy: 0 -0 0"]
+"toe_fr_joint" -> "toe_fr"
+"body" -> "torso_to_abduct_hl_j" [label="xyz: -0.19 0.049 0 \nrpy: 0 -0 0"]
+"torso_to_abduct_hl_j" -> "abduct_hl"
+"abduct_hl" -> "abduct_hl_to_thigh_hl_j" [label="xyz: 0 0.062 0 \nrpy: 0 -0 0"]
+"abduct_hl_to_thigh_hl_j" -> "thigh_hl"
+"thigh_hl" -> "thigh_hl_to_knee_hl_j" [label="xyz: 0 0 -0.209 \nrpy: 0 -0 0"]
+"thigh_hl_to_knee_hl_j" -> "shank_hl"
+"shank_hl" -> "toe_hl_joint" [label="xyz: 0 0 -0.18 \nrpy: 0 -0 0"]
+"toe_hl_joint" -> "toe_hl"
+"body" -> "torso_to_abduct_hr_j" [label="xyz: -0.19 -0.049 0 \nrpy: 0 -0 0"]
+"torso_to_abduct_hr_j" -> "abduct_hr"
+"abduct_hr" -> "abduct_hr_to_thigh_hr_j" [label="xyz: 0 -0.062 0 \nrpy: 0 -0 0"]
+"abduct_hr_to_thigh_hr_j" -> "thigh_hr"
+"thigh_hr" -> "thigh_hr_to_knee_hr_j" [label="xyz: 0 0 -0.209 \nrpy: 0 -0 0"]
+"thigh_hr_to_knee_hr_j" -> "shank_hr"
+"shank_hr" -> "toe_hr_joint" [label="xyz: 0 0 -0.18 \nrpy: 0 -0 0"]
+"toe_hr_joint" -> "toe_hr"
+}

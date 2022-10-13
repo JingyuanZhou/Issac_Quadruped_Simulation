@@ -25,7 +25,7 @@ class DataReader:
             self.load_control_plan("/home/jyzhou53/rl-mpc-locomotion/MPC_Controller/FSM_states/Data/front_jump_pitchup_v2.dat")
             print("[Front Jump DataReader] Constructed.")
 
-    
+
     def load_control_plan(self,filename):
         f=open(filename,"rb")
         f.seek(0,SEEK_END)

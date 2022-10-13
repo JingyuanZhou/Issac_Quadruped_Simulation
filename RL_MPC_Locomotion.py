@@ -12,7 +12,7 @@ from argparse import ArgumentParser
 
 parser = ArgumentParser(prog="RL_MPC_LOCOMOTION")
 
-parser.add_argument("--robot", default="ALIENGO", choices=[name.title() for name in RobotType.__members__.keys()], help="robot types")
+parser.add_argument("--robot", default="MINI_CHEETAH", choices=[name.title() for name in RobotType.__members__.keys()], help="robot types")
 parser.add_argument("--mode", default="Fsm", choices=[name.title() for name in ControllerType.__members__.keys()], help="controller types") #Fsm
 parser.add_argument("--num_envs", default=1, type=int, help="the number of robots")
 parser.add_argument("--render-fps", type=int, default=30, help="render fps")
@@ -21,7 +21,7 @@ parser.add_argument('--disable-gamepad', action='store_true')
 args = parser.parse_args()
 
 use_gamepad = False#not args.disable_gamepad
-debug_vis = False # draw ground normal vector
+debug_vis = True # draw ground normal vector
 
 
 def main():
@@ -101,7 +101,7 @@ def main():
             body_idx = gym.find_actor_rigid_body_index(env, actor, controller._quadruped._bodyName, gymapi.DOMAIN_ACTOR)
             body_states = gym.get_actor_rigid_body_states(env, actor, gymapi.STATE_ALL)[body_idx]
             legTorques = controller.run(dof_states, body_states, commands)
-            gym.apply_actor_dof_efforts(env, actor, legTorques / (Parameters.controller_dt*1000))
+            gym.apply_actor_dof_efforts(env, actor, legTorques / (Parameters.controller_dt*500))
 
         #if Parameters.locomotionUnsafe:
         #    gamepad.fake_event(ev_type='Key',code='BTN_TR',value=0)

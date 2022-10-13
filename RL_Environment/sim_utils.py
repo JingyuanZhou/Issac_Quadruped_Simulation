@@ -3,7 +3,7 @@ from MPC_Controller.common.Quadruped import RobotType
 from isaacgym.terrain_utils import *
 
 ASSET_ROOT = "assets"
-MINI_CHEETAH = "mini_cheetah/mini_cheetah.urdf"
+MINI_CHEETAH = "mini_cheetah/mini_cheetah.urdf"#"mini_cheetah_v2/mini_cheetah.urdf.xacro"
 ALIENGO = "aliengo_description/xacro/aliengo.urdf"
 A1 = "a1_description/a1.urdf"
 ANYMAL = "anymal_c/urdf/anymal.urdf"

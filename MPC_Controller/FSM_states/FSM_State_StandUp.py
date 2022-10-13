@@ -13,7 +13,8 @@ class FSM_State_StandUp(FSM_State):
         self.checkPDesFoot = False
         self.checkForceFeedForward = False
         self._ini_foot_pos = np.zeros((3,4), dtype=DTYPE)
-        self.controller_dt = 0.001
+        self.controller_dt = 0.002
+        self.iter = 0
 
     def onEnter(self):
         self.nextStateName = self.stateName
@@ -47,7 +48,7 @@ class FSM_State_StandUp(FSM_State):
         self.iter += 1
 
         # Switch FSM control mode
-        if Parameters.control_mode is FSM_StateName.STANDUP:
+        if Parameters.control_mode is FSM_StateName.STAND_UP:
             pass
         elif Parameters.control_mode is FSM_StateName.BACKFLIP:
             self.nextStateName = FSM_StateName.BACKFLIP

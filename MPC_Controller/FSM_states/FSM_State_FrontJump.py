@@ -37,7 +37,7 @@ class FSM_State_FrontJump(FSM_State):
 
         self.zero_vec3 = np.zeros((3,1), dtype=DTYPE)
         
-        self.controller_dt = 0.001
+        self.controller_dt = 0.002
         self._data_reader=DataReader(_controlFSMData._quadruped._robotType,FSM_StateName.FRONTJUMP)
         self.front_jump_ctrl_=FrontJumpCtrl(self._data_reader,self.controller_dt)
         self.front_jump_ctrl_.SetParameter()

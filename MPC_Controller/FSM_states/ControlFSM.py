@@ -58,7 +58,7 @@ class ControlFSM:
         
         self.transitionDone = False
         self.printIter = 0
-        self.printNum = int(1000/(Parameters.controller_dt*1000)) # N*(0.001s) in simulation time
+        self.printNum = int(1000/(Parameters.controller_dt*100)) # N*(0.01s) in simulation time
         self.iter = 0
 
         # ! may need a SafetyChecker
@@ -167,6 +167,10 @@ class ControlFSM:
             return self.statesList.locomotion
         elif stateName is FSM_StateName.RECOVERY_STAND:
             return self.statesList.recoveryStand
+        elif stateName is FSM_StateName.BACKFLIP:
+            return self.statesList.backflip
+        elif stateName is FSM_StateName.FRONTJUMP:
+            return self.statesList.frontjump
         else:
             return self.statesList.invalid
 

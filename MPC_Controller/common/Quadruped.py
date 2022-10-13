@@ -60,11 +60,11 @@ class Quadruped:
             self._kneeLinkY_offset = 0.004
             self._abadLocation = np.array([0.19, 0.049, 0], dtype=DTYPE).reshape((3,1))
             self._bodyName = "body"
-            self._bodyMass = 3.3 #3.3 * 3
+            self._bodyMass = 3.3#3.3 * 3 
             self._bodyInertia = np.array([0.011253, 0, 0, 
                                       0, 0.036203, 0, 
                                       0, 0, 0.042673]) * 10
-            self._bodyHeight = 0.05*2 #0.29
+            self._bodyHeight = 0.05*2 #0.29 #
             self._friction_coeffs = np.ones(4, dtype=DTYPE) * 0.4
             # (roll_pitch_yaw, position, angular_velocity, velocity, gravity_place_holder)
             self._mpc_weights = [0.25, 0.25, 10, 2, 2, 50, 0, 0, 0.3, 0.2, 0.2, 0.1, 0]

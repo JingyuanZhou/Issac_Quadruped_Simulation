@@ -38,7 +38,7 @@ class BackFlipCtrl(DataReadCtrl):
 
 
     def _update_joint_command(self):
-        pre_mode_duration = 0 #2000
+        pre_mode_duration = 2000 #2000
         tuck_iteration = 600 #600
         ramp_end_iteration = 650 #650
 
@@ -64,16 +64,14 @@ class BackFlipCtrl(DataReadCtrl):
         
         current_step = self._data_reader.get_plan_at_time(self.current_iteration)
         current_step = self.Bytes2Float32Slice(current_step)
-        tau_offset_list=[self.tau_offset for i in range(22)]
-        tau = [current_step[i]+tau_offset_list[i] for i in range(min(len(current_step),len(tau_offset_list)))]
 
         q_des_front = [0.0,current_step[3],current_step[4]]
         q_des_rear = [0.0,current_step[5],current_step[6]]
         qd_des_front = [0.0,current_step[10],current_step[11]]
         qd_des_rear = [0.0,current_step[12],current_step[13]]
 
-        tau_front = [0.0,tau_mult*tau[0]/2.0,tau_mult*tau[1]/2.0]
-        tau_rear = [0.0,tau_mult*tau[2]/2.0,tau_mult*tau[3]/2.0]
+        tau_front = [0.0,tau_mult*current_step[0+self.tau_offset]/2.0,tau_mult*current_step[self.tau_offset+1]/2.0]
+        tau_rear = [0.0,tau_mult*current_step[2+self.tau_offset]/2.0,tau_mult*current_step[self.tau_offset+3]/2.0]
 
         s=0.0
 
@@ -100,9 +98,9 @@ class BackFlipCtrl(DataReadCtrl):
             q_des_rear_f  = [0.0, -1.0525, 1.65]
 
             transition_q_des_front_0=[i * (1-s) for i in q_des_front_0]
-            transition_q_des_front_f=[i * (1-s) for i in q_des_front_f]
+            transition_q_des_front_f=[i * s for i in q_des_front_f]
             transition_q_des_rear_0=[i * (1-s) for i in q_des_rear_0]
-            transition_q_des_rear_f=[i * (1-s) for i in q_des_rear_f]
+            transition_q_des_rear_f=[i * s for i in q_des_rear_f]
 
             q_des_front = [transition_q_des_front_0[i]+transition_q_des_front_f[i] for i in range(min(len(transition_q_des_front_0),len(transition_q_des_front_f)))]
             q_des_rear = [transition_q_des_rear_0[i]+transition_q_des_rear_f[i] for i in range(min(len(transition_q_des_rear_0),len(transition_q_des_rear_f)))]
